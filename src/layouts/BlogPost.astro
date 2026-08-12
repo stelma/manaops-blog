@@ -61,7 +61,14 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 		margin-bottom: 2.5em;
 	}
 	.post-head h1 {
-		margin: 0.2em 0 0 0;
+		margin: 0.3em 0 0 0;
+		/* Georgia, as the wordmark uses — but without the 2px tracking, which
+		   the brand reserves for "ManaOps" itself. */
+		font-family: var(--font-serif);
+		font-size: clamp(1.7rem, 3.4vw, 2.2rem);
+		font-weight: 700;
+		letter-spacing: 0;
+		line-height: 1.25;
 	}
 	.date {
 		margin: 0;
