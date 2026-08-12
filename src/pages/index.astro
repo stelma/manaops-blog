@@ -46,6 +46,57 @@ const [lead, ...rest] = posts;
 			}
 		</main>
 		<Footer />
+
+		<script>
+			// Hero parallax: the star field trails the mark on scroll, so the two
+			// layers read as different depths. Progressive enhancement — without
+			// this script the hero is simply static.
+			const hero = document.querySelector<HTMLElement>('.hero');
+			const stars = hero?.querySelector<HTMLElement>('.stars');
+			const content = hero?.querySelector<HTMLElement>('.hero-content');
+			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+			if (hero && stars && content) {
+				let queued = false;
+
+				const update = () => {
+					queued = false;
+					const height = hero.offsetHeight;
+					// Clamp: past the hero there is nothing left to move.
+					const y = Math.min(window.scrollY, height);
+					const progress = height > 0 ? y / height : 0;
+
+					stars.style.transform = `translate3d(0, ${y * 0.4}px, 0)`;
+					content.style.transform = `translate3d(0, ${y * 0.16}px, 0)`;
+					content.style.opacity = String(1 - progress * 0.7);
+				};
+
+				const reset = () => {
+					stars.style.transform = '';
+					content.style.transform = '';
+					content.style.opacity = '';
+				};
+
+				const onScroll = () => {
+					if (queued) return;
+					queued = true;
+					requestAnimationFrame(update);
+				};
+
+				const apply = () => {
+					if (reduceMotion.matches) {
+						window.removeEventListener('scroll', onScroll);
+						reset();
+					} else {
+						window.addEventListener('scroll', onScroll, { passive: true });
+						update();
+					}
+				};
+
+				apply();
+				reduceMotion.addEventListener('change', apply);
+			}
+		</script>
 	</body>
 </html>
 
@@ -72,6 +123,10 @@ const [lead, ...rest] = posts;
 		flex-direction: column;
 		align-items: center;
 		gap: 1.2em;
+		will-change: transform, opacity;
+	}
+	.hero :global(.stars) {
+		will-change: transform;
 	}
 	.hero h1 {
 		margin: 0;
