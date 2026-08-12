@@ -1,9 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import Lockup from '../components/Lockup.astro';
+import PostCard from '../components/PostCard.astro';
+import Stars from '../components/Stars.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const [lead, ...rest] = posts;
 ---
 
 <!doctype html>
@@ -15,9 +23,27 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		<Header />
 		<main>
 			<section class="hero">
-				<Lockup width={340} />
-				<h1 class="wordmark">{SITE_TITLE}</h1>
+				<Stars count={30} />
+				<div class="hero-content">
+					<Lockup width={260} />
+					<h1 class="wordmark">{SITE_TITLE}</h1>
+				</div>
 			</section>
+
+			{
+				posts.length > 0 && (
+					<section class="posts">
+						<PostCard post={lead} featured />
+						{rest.length > 0 && (
+							<div class="grid">
+								{rest.map((post) => (
+									<PostCard post={post} />
+								))}
+							</div>
+						)}
+					</section>
+				)
+			}
 		</main>
 		<Footer />
 	</body>
@@ -26,27 +52,47 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 <style>
 	main {
 		width: 1040px;
-		padding: 0 1em;
+		padding: 0 1em 4em 1em;
 	}
 	.hero {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: 1.4em;
-		min-height: calc(100vh - 68px - 8em);
-		padding: 3em 0;
+		padding: 4em 0 3.5em 0;
+		margin-bottom: 3em;
+		border-bottom: 1px solid var(--border);
 		text-align: center;
+	}
+	.hero-content {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.2em;
 	}
 	.hero h1 {
 		margin: 0;
-		font-size: clamp(2.6rem, 6vw, 3.6rem);
+		font-size: clamp(2.2rem, 5vw, 3rem);
 		line-height: 1;
+	}
+	.posts {
+		position: relative;
+		z-index: 1;
+	}
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 1.5em;
+		margin-top: 1.5em;
 	}
 
 	@media (max-width: 720px) {
 		.hero {
-			min-height: calc(100vh - 58px - 6em);
+			padding: 2.5em 0;
+			margin-bottom: 2em;
 		}
 	}
 </style>

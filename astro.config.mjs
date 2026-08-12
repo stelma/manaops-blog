@@ -10,6 +10,10 @@ export default defineConfig({
 	// canonical URLs, the sitemap, and RSS links.
 	site: 'https://manaops.example',
 	integrations: [mdx(), sitemap()],
+	// The blog listing now lives on the home page; keep the old path working.
+	redirects: {
+		'/blog': '/',
+	},
 	fonts: [
 		{
 			provider: fontProviders.local(),
