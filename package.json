@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "og": "node scripts/generate-og.mjs src/assets/og-default.png"
+    "og": "node scripts/generate-og.mjs src/assets/og-default.png",
+    "deploy": "./scripts/deploy.sh"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.5",
