@@ -34,8 +34,7 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 					<h1>{title}</h1>
 					<p class="description">{description}</p>
 					<div class="rule">
-						<span class="line"></span>
-						<CometMark size={22} />
+						<CometMark size={20} />
 						<span class="line"></span>
 					</div>
 				</header>
@@ -57,7 +56,6 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 		padding-top: 3.5em;
 	}
 	.post-head {
-		text-align: center;
 		margin-bottom: 2.5em;
 	}
 	.post-head h1 {
@@ -84,27 +82,39 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 		text-transform: none;
 	}
 	.description {
-		margin: 0.9em auto 0 auto;
-		max-width: 46ch;
+		margin: 0.9em 0 0 0;
+		max-width: 58ch;
 		color: var(--text-muted);
 		font-size: 1.05rem;
 	}
 	.rule {
 		display: flex;
 		align-items: center;
-		gap: 1em;
+		gap: 0.9em;
 		margin-top: 2em;
 	}
 	.rule .line {
 		flex: 1;
 		height: 1px;
-		background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+		background: linear-gradient(90deg, var(--border-strong), transparent);
+	}
+	.prose {
+		/* Cap the measure independently of the column width — much past ~70
+		   characters the eye loses the start of the next line. em rather than
+		   ch: ch measures "0", which is far wider than average lowercase here. */
+		max-width: 33em;
+		line-height: 1.8;
+	}
+	.prose :global(p) {
+		text-wrap: pretty;
 	}
 	.prose :global(h2) {
-		margin-top: 1.8em;
+		margin-top: 1.9em;
+		font-size: 1.5em;
 	}
 	.prose :global(h3) {
-		margin-top: 1.5em;
+		margin-top: 1.6em;
+		font-size: 1.2em;
 	}
 	.prose :global(img) {
 		border: 1px solid var(--border);
