@@ -39,13 +39,16 @@ fi
 
 TODAY=$(date +%Y-%m-%d)
 
-# Escape single quotes for the YAML single-quoted scalar.
-YAML_TITLE=${TITLE//\'/\'\'}
+# Double-quoted YAML scalars, because prose is full of apostrophes and a
+# single-quoted scalar would end at the first one. Backslash first, or the
+# second substitution would escape the escapes.
+YAML_TITLE=${TITLE//\\/\\\\}
+YAML_TITLE=${YAML_TITLE//\"/\\\"}
 
 cat > "$FILE" <<EOF
 ---
-title: '${YAML_TITLE}'
-description: ''
+title: "${YAML_TITLE}"
+description: ""
 pubDate: ${TODAY}
 ---
 
