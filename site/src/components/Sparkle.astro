@@ -1,0 +1,21 @@
+---
+/* A 4-point flourish. Used sparingly beside the wordmark. */
+interface Props {
+	size?: number;
+	class?: string;
+}
+
+const { size = 12, class: className } = Astro.props;
+---
+
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	width={size}
+	height={size}
+	viewBox="0 0 16 16"
+	class={className}
+	aria-hidden="true"
+	focusable="false"
+>
+	<path d="M8,0 L10,6 L16,8 L10,10 L8,16 L6,10 L0,8 L6,6 Z" fill="#3FA08F"></path>
+</svg>

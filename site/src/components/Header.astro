@@ -1,0 +1,123 @@
+---
+import { SITE_TITLE } from '../consts';
+import CometMark from './CometMark.astro';
+import HeaderLink from './HeaderLink.astro';
+import Sparkle from './Sparkle.astro';
+---
+
+<header>
+	<nav>
+		<a class="brand" href="/">
+			<CometMark size={30} class="brand-mark" />
+			<span class="wordmark">{SITE_TITLE}</span>
+			<Sparkle size={9} class="brand-sparkle" />
+		</a>
+		<div class="internal-links">
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
+			<a class="feed" href="/rss.xml">
+				<span class="sr-only">RSS feed</span>
+				<svg viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"
+					><path
+						fill="currentColor"
+						d="M2 11.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM0 6.5a9.5 9.5 0 0 1 9.5 9.5H12A12 12 0 0 0 0 4v2.5zM0 .5A15.5 15.5 0 0 1 15.5 16H18A18 18 0 0 0 0-2v2.5z"
+						transform="translate(0 -0.5) scale(0.85)"></path></svg
+				>
+			</a>
+		</div>
+	</nav>
+</header>
+
+<style>
+	header {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		margin: 0;
+		padding: 0 1.5em;
+		background: rgba(10, 23, 16, 0.82);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border-bottom: 1px solid var(--border);
+	}
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1em;
+		max-width: 1100px;
+		margin: 0 auto;
+		min-height: 68px;
+	}
+	.brand {
+		display: flex;
+		align-items: center;
+		gap: 0.55em;
+		text-decoration: none;
+		padding: 0.4em 0;
+	}
+	.brand .wordmark {
+		font-size: 1.35rem;
+		line-height: 1;
+	}
+	.brand :global(.brand-mark) {
+		flex: none;
+		transition: transform 0.3s ease;
+	}
+	.brand:hover :global(.brand-mark) {
+		transform: translate(2px, -2px);
+	}
+	.brand :global(.brand-sparkle) {
+		flex: none;
+		opacity: 0.75;
+		align-self: flex-start;
+		margin-top: 0.2em;
+	}
+	.internal-links {
+		display: flex;
+		align-items: center;
+		gap: 0.4em;
+	}
+	nav :global(a:not(.brand)) {
+		padding: 0.5em 0.85em;
+		color: var(--text-muted);
+		font-size: 0.85rem;
+		letter-spacing: 1px;
+		border-radius: 6px;
+		text-decoration: none;
+		transition:
+			color 0.18s ease,
+			background 0.18s ease;
+	}
+	nav :global(a:not(.brand):hover) {
+		color: var(--cream);
+		background: rgba(46, 139, 158, 0.12);
+	}
+	nav :global(a.active) {
+		color: var(--teal-light);
+		font-weight: 700;
+		text-decoration: none;
+		background: rgba(63, 160, 143, 0.1);
+	}
+	.feed {
+		display: flex;
+		align-items: center;
+	}
+
+	@media (max-width: 720px) {
+		header {
+			padding: 0 0.75em;
+		}
+		nav {
+			min-height: 58px;
+		}
+		.brand .wordmark {
+			font-size: 1.1rem;
+		}
+		nav :global(a:not(.brand)) {
+			padding: 0.5em 0.5em;
+			font-size: 0.78rem;
+			letter-spacing: 0;
+		}
+	}
+</style>

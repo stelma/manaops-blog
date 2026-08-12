@@ -1,0 +1,30 @@
+---
+import { SITE_TITLE } from '../consts';
+import Sparkle from './Sparkle.astro';
+---
+
+<footer>
+	<div class="mark">
+		<Sparkle size={11} />
+		<span class="wordmark">{SITE_TITLE}</span>
+		<Sparkle size={11} />
+	</div>
+</footer>
+
+<style>
+	footer {
+		padding: 2.5em 1em 3em 1em;
+		border-top: 1px solid var(--border);
+		background: linear-gradient(180deg, transparent, rgba(20, 46, 36, 0.5));
+		text-align: center;
+	}
+	.mark {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.7em;
+	}
+	.mark .wordmark {
+		font-size: 1.1rem;
+	}
+</style>

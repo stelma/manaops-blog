@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "manaops-site",
+      "runtimeExecutable": "/usr/local/bin/node",
+      "runtimeArgs": [
+        "site/node_modules/astro/bin/astro.mjs",
+        "dev",
+        "--root",
+        "site",
+        "--port",
+        "4321"
+      ],
+      "port": 4321
+    }
+  ]
+}

@@ -1,0 +1,291 @@
+/*
+  ManaOps theme.
+  Colour tokens and shape language come from manaops_brand_resources.md.
+  Layout skeleton is based off of Bear Blog's default CSS.
+  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
+  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
+ */
+
+:root {
+	/* Base */
+	--bg: #0a1710;
+	--pedestal: #142e24;
+	--cream: #f0ead8;
+
+	/* Tower / frame */
+	--glow-outer: #123b4f;
+	--outline: #2e8b9e;
+	--teal: #3fa08f;
+	--teal-light: #4fa89e;
+
+	/* Comet */
+	--red-deep: #5c1512;
+	--red-mid: #a5301f;
+	--orange: #e2722e;
+	--ember: #c24a22;
+	--glow-1: #f5c542;
+	--glow-2: #f7dda0;
+	--glow-3: #fff4d6;
+	--glow-core: #fffdf5;
+
+	/* Derived surfaces */
+	--surface: #0e2018;
+	--surface-raised: #14291f;
+	--border: rgba(46, 139, 158, 0.24);
+	--border-strong: rgba(46, 139, 158, 0.45);
+	--text: var(--cream);
+	--text-muted: #93a79b;
+	--code-bg: #0c1e17;
+
+	/* Type */
+	--font-sans: var(--font-atkinson), system-ui, -apple-system, sans-serif;
+	--font-serif: Georgia, 'Times New Roman', serif;
+	--font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+
+	/* Effects */
+	--glow-teal: 0 0 0 1px var(--border-strong), 0 8px 32px rgba(18, 59, 79, 0.55);
+	--glow-comet: 0 6px 28px rgba(226, 114, 46, 0.18);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: var(--font-sans);
+	margin: 0;
+	padding: 0;
+	min-height: 100vh;
+	text-align: left;
+	background-color: var(--bg);
+	/* A faint comet-warmth in the upper right, teal depth in the lower left. */
+	background-image:
+		radial-gradient(60rem 40rem at 88% -10%, rgba(226, 114, 46, 0.1), transparent 60%),
+		radial-gradient(50rem 40rem at 5% 15%, rgba(18, 59, 79, 0.35), transparent 65%);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	color: var(--text);
+	font-size: 20px;
+	line-height: 1.7;
+	-webkit-font-smoothing: antialiased;
+}
+
+main {
+	width: 720px;
+	max-width: calc(100% - 2em);
+	margin: auto;
+	padding: 3em 1em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0 0 0.5rem 0;
+	color: var(--cream);
+	line-height: 1.2;
+	font-weight: 700;
+}
+
+h1 {
+	font-size: 2.6em;
+	letter-spacing: -0.5px;
+}
+h2 {
+	font-size: 1.9em;
+	letter-spacing: -0.3px;
+}
+h3 {
+	font-size: 1.45em;
+}
+h4 {
+	font-size: 1.2em;
+}
+h5 {
+	font-size: 1.05em;
+}
+
+strong,
+b {
+	font-weight: 700;
+	color: var(--cream);
+}
+
+a {
+	color: var(--teal-light);
+	text-underline-offset: 3px;
+	text-decoration-thickness: 1px;
+	transition: color 0.18s ease;
+}
+a:hover {
+	color: var(--glow-2);
+}
+
+p {
+	margin-bottom: 1em;
+}
+.prose p {
+	margin-bottom: 1.6em;
+}
+
+textarea,
+input {
+	width: 100%;
+	font-size: 16px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.85em;
+	margin-bottom: 1.5em;
+}
+th,
+td {
+	border-bottom: 1px solid var(--border);
+	padding: 0.6em 0.8em;
+	text-align: left;
+}
+th {
+	color: var(--teal-light);
+	font-weight: 700;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+	font-size: 0.85em;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+}
+
+code {
+	padding: 2px 6px;
+	background-color: var(--surface-raised);
+	border: 1px solid var(--border);
+	border-radius: 4px;
+	font-family: var(--font-mono);
+	font-size: 0.85em;
+	color: var(--glow-2);
+}
+
+pre {
+	padding: 1.4em;
+	border-radius: 10px;
+	border: 1px solid var(--border);
+	overflow-x: auto;
+	font-size: 0.8em;
+	line-height: 1.6;
+}
+/* Shiki writes its own theme background inline; keep the brand surface instead. */
+pre.astro-code {
+	background-color: var(--code-bg) !important;
+}
+pre > code {
+	all: unset;
+	font-family: var(--font-mono);
+}
+
+blockquote {
+	border-left: 3px solid var(--teal);
+	background: linear-gradient(90deg, rgba(63, 160, 143, 0.08), transparent 70%);
+	padding: 0.6em 0 0.6em 1.4em;
+	margin: 0 0 1.6em 0;
+	font-size: 1.1em;
+	color: var(--cream);
+}
+blockquote p:last-child {
+	margin-bottom: 0;
+}
+
+hr {
+	border: none;
+	border-top: 1px solid var(--border);
+}
+
+ul,
+ol {
+	padding-left: 1.3em;
+}
+li {
+	margin-bottom: 0.4em;
+}
+li::marker {
+	color: var(--teal);
+}
+
+::selection {
+	background: rgba(63, 160, 143, 0.35);
+	color: var(--glow-core);
+}
+
+:focus-visible {
+	outline: 2px solid var(--teal-light);
+	outline-offset: 3px;
+	border-radius: 2px;
+}
+
+/* ── Brand type treatments ───────────────────────────────────── */
+
+/* "ManaOps" only — never for body copy. */
+.wordmark {
+	font-family: var(--font-serif);
+	font-weight: 700;
+	letter-spacing: 2px;
+	color: var(--cream);
+}
+
+@media (max-width: 720px) {
+	body {
+		font-size: 18px;
+	}
+	main {
+		padding: 1.5em 1em;
+	}
+	h1 {
+		font-size: 2em;
+	}
+	h2 {
+		font-size: 1.5em;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+	}
+}
+
+.sr-only {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
+	clip: rect(1px 1px 1px 1px);
+	/* maybe deprecated but we need to support legacy browsers */
+	clip: rect(1px, 1px, 1px, 1px);
+	/* modern browsers, clip-path works inwards from each corner */
+	clip-path: inset(50%);
+	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
+	white-space: nowrap;
+}

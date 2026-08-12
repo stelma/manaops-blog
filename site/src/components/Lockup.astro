@@ -1,0 +1,110 @@
+---
+/*
+ * The full ManaOps mark: the tower frame on its pedestal, with the comet
+ * streaking past the tower's shoulder.
+ *
+ * Composed from the three source marks — coordinates are the originals,
+ * repositioned with transforms so each shape stays exactly on-brand:
+ *   tower_frame (150x230)  ->  translate(90, 20)
+ *   pedestal    (160x70)   ->  translate(80, 216)
+ *   comet       (121x123)  ->  translate(132.4, 130.4) scale(0.46)
+ *
+ * The comet burns *inside* the tower: scaled to 0.46 it clears the inner
+ * cream-stroked walls (x 130-190) with the head low and the tail rising
+ * toward the peak.
+ */
+interface Props {
+	width?: number;
+	class?: string;
+}
+
+const { width = 320, class: className } = Astro.props;
+---
+
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	width={width}
+	height={(width * 300) / 320}
+	viewBox="0 0 320 300"
+	class:list={['lockup', className]}
+	role="img"
+	aria-label="ManaOps: a comet passing a beacon tower"
+>
+	<!-- Pedestal: widened hexagonal base, flush beneath the tower's outer rim -->
+	<g transform="translate(80, 216)">
+		<polygon points="38,6 122,6 144,38 104,64 56,64 16,38" fill="#142E24"></polygon>
+		<ellipse cx="56" cy="32" rx="6" ry="9" fill="#3FA08F"></ellipse>
+		<ellipse cx="80" cy="44" rx="6" ry="9" fill="#3FA08F"></ellipse>
+		<ellipse cx="104" cy="32" rx="6" ry="9" fill="#3FA08F"></ellipse>
+	</g>
+
+	<!-- Tower: three nested layers — outer glow, dashed mid outline, cream inner edge -->
+	<g transform="translate(90, 20)">
+		<polygon
+			points="70,22 112,78 112,206 28,206 28,78"
+			fill="none"
+			stroke="#123B4F"
+			stroke-width="18"
+			opacity="0.35"></polygon>
+		<polygon
+			points="70,30 106,80 106,200 34,200 34,80"
+			fill="none"
+			stroke="#2E8B9E"
+			stroke-width="3"
+			opacity="0.8"
+			stroke-dasharray="55 12 28 10 16 8"
+			stroke-linejoin="round"></polygon>
+		<polygon
+			points="70,38 100,84 100,192 40,192 40,84"
+			fill="#0A1710"
+			stroke="#F0EAD8"
+			stroke-width="3"
+			stroke-linejoin="round"></polygon>
+	</g>
+
+	<!-- Comet: burning inside the tower -->
+	<g transform="translate(132.4, 130.4) scale(0.46)">
+		<path
+			d="M41.5,96.5 C69,85.5 102,58 110.8,25 L106.4,16.2 C91,41.5 63.5,69 44.8,80 Z"
+			fill="#5C1512"
+			opacity="0.6"></path>
+		<path
+			d="M38.2,91 C60.2,82.2 85.5,60.2 96.5,33.8 L93.2,27.2 C80,47 58,69 42.6,76.7 Z"
+			fill="#A5301F"
+			opacity="0.75"></path>
+		<path
+			d="M33.8,88.8 C49.2,82.2 66.8,66.8 77.8,49.2 L73.4,44.8 C62.4,60.2 47,74.5 36,82.2 Z"
+			fill="#E2722E"
+			opacity="0.85"></path>
+		<circle cx="102" cy="12" r="2.5" fill="#C24A22" opacity="0.4"></circle>
+		<circle cx="108" cy="20" r="2" fill="#A5301F" opacity="0.3"></circle>
+		<circle class="halo" cx="34" cy="89" r="24" fill="#F5C542" opacity="0.35"></circle>
+		<circle cx="34" cy="89" r="16" fill="#F7DDA0" opacity="0.7"></circle>
+		<circle cx="34" cy="89" r="10" fill="#FFF4D6" opacity="0.95"></circle>
+		<circle cx="34" cy="89" r="5" fill="#FFFDF5"></circle>
+	</g>
+</svg>
+
+<style>
+	.lockup {
+		display: block;
+		max-width: 100%;
+		height: auto;
+	}
+	/* The head breathes, very slightly. */
+	.halo {
+		animation: pulse 4.5s ease-in-out infinite;
+		transform-origin: 34px 89px;
+	}
+	@keyframes pulse {
+		0%,
+		100% {
+			opacity: 0.28;
+			transform: scale(1);
+		}
+		50% {
+			opacity: 0.45;
+			transform: scale(1.08);
+		}
+	}
+</style>
