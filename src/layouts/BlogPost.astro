@@ -99,22 +99,39 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 		background: linear-gradient(90deg, var(--border-strong), transparent);
 	}
 	.prose {
+		/* Georgia for the body, matching the title. Smaller than the UI text —
+		   Georgia's large x-height means 18px here reads about the same size as
+		   20px of the sans face, with less shouting. */
+		font-family: var(--font-serif);
+		font-size: 18px;
+		line-height: 1.75;
 		/* Cap the measure independently of the column width — much past ~70
 		   characters the eye loses the start of the next line. em rather than
 		   ch: ch measures "0", which is far wider than average lowercase here. */
-		max-width: 33em;
-		line-height: 1.8;
+		max-width: 32em;
 	}
 	.prose :global(p) {
 		text-wrap: pretty;
 	}
+	.prose :global(h2),
+	.prose :global(h3),
+	.prose :global(h4) {
+		font-family: var(--font-serif);
+		letter-spacing: 0;
+	}
 	.prose :global(h2) {
 		margin-top: 1.9em;
-		font-size: 1.5em;
+		font-size: 1.45em;
 	}
 	.prose :global(h3) {
 		margin-top: 1.6em;
 		font-size: 1.2em;
+	}
+	/* Code stays in the mono face at the UI size — serif numerals and
+	   proportional spacing make command lines hard to read. */
+	.prose :global(code),
+	.prose :global(pre) {
+		font-family: var(--font-mono);
 	}
 	.prose :global(img) {
 		border: 1px solid var(--border);
