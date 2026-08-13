@@ -52,11 +52,18 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 
 <style>
 	main {
-		width: 760px;
-		padding-top: 3.5em;
+		width: 720px;
+		padding-top: 3em;
+	}
+	/* Der Beitrag sitzt auf einer eigenen Fläche, abgesetzt vom Seitenhintergrund. */
+	article {
+		background: linear-gradient(160deg, var(--surface-raised), var(--surface));
+		border: 1px solid var(--border);
+		border-radius: 16px;
+		padding: 2.75em 3em 2.5em 3em;
 	}
 	.post-head {
-		margin-bottom: 2.5em;
+		margin-bottom: 2.25em;
 	}
 	.post-head h1 {
 		margin: 0.3em 0 0 0;
@@ -104,11 +111,11 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 		   20px of the sans face, with less shouting. */
 		font-family: var(--font-serif);
 		font-size: 18px;
-		line-height: 1.75;
+		line-height: 1.6;
 		/* Cap the measure independently of the column width — much past ~70
 		   characters the eye loses the start of the next line. em rather than
 		   ch: ch measures "0", which is far wider than average lowercase here. */
-		max-width: 32em;
+		max-width: 36em;
 	}
 	.prose :global(p) {
 		text-wrap: pretty;
@@ -149,7 +156,11 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 
 	@media (max-width: 720px) {
 		main {
-			padding-top: 2em;
+			padding-top: 1.5em;
+		}
+		article {
+			padding: 1.75em 1.5em;
+			border-radius: 12px;
 		}
 	}
 </style>
